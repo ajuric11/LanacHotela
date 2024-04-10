@@ -28,6 +28,12 @@ namespace Backend.Controllers
             
             
         }
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            return new JsonResult(_context.Djelatnici.Find(sifra));
+        }
 
         [HttpPost]
         public IActionResult Post(Djelatnik smjer)
