@@ -6,7 +6,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class DjelatnikController : ControllerBase
+    public class HotelController : ControllerBase
     {
         // Dependency injection
         // Definiraš privatno svojstvo
@@ -14,7 +14,7 @@ namespace Backend.Controllers
 
         // Dependency injection
         // U konstruktoru primir instancu i dodjeliš privatnom svojstvu
-        public DjelatnikController(EdunovaContext context)
+        public HotelController(EdunovaContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace Backend.Controllers
         public IActionResult GetBySifra(int sifra)
         {
 
-            return new JsonResult(_context.Djelatnici.Find(sifra));
+            return new JsonResult(_context.Hoteli.Find(sifra));
 
 
         }
@@ -33,32 +33,32 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return new JsonResult(_context.Djelatnici.ToList());
+            return new JsonResult(_context.Hoteli.ToList());
         }
 
 
         [HttpPost]
-        public IActionResult Post(Djelatnik djelatnik)
+        public IActionResult Post(Hotel hotel)
         {
-            _context.Djelatnici.Add(djelatnik);
+            _context.Hoteli.Add(hotel);
             _context.SaveChanges();
-            return new JsonResult(djelatnik);
+            return new JsonResult(hotel);
         }
 
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Djelatnik djelatnik)
+        public IActionResult Put(int sifra, Hotel hotel)
         {
-            var djelatnikIzBaze = _context.Djelatnici.Find(sifra);
+            var hotelIzBaze = _context.Hoteli.Find(sifra);
             // za sada ručno, kasnije će doći Mapper
-            djelatnikIzBaze.Ime = djelatnik.Ime;
-            djelatnikIzBaze.Prezime = djelatnik.Prezime;
+            hotelIzBaze.Naziv = hotel.Naziv;
+            hotelIzBaze.Mjesto = hotel.Mjesto;
 
 
-            _context.Djelatnici.Update(djelatnikIzBaze);
+            _context.Hoteli.Update(hotelIzBaze);
             _context.SaveChanges();
 
-            return new JsonResult(djelatnikIzBaze);
+            return new JsonResult(hotelIzBaze);
         }
 
         [HttpDelete]
@@ -66,8 +66,8 @@ namespace Backend.Controllers
         [Produces("application/json")]
         public IActionResult Delete(int sifra)
         {
-            var djelatnikIzBaze = _context.Djelatnici.Find(sifra);
-            _context.Djelatnici.Remove(djelatnikIzBaze);
+            var hotelIzBaze = _context.Hoteli.Find(sifra);
+            _context.Hoteli.Remove(hotelIzBaze);
             _context.SaveChanges();
             return new JsonResult(new { poruka = "Obrisano" });
         }
