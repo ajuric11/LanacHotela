@@ -7,7 +7,7 @@ namespace Backend.Models
         public string? Ime { get; set; }
         public string? Prezime { get; set; }
         
-        public int? Hotel { get; set; }
+        public string? Hotel { get; set; }
         
 
 
