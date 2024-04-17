@@ -12,7 +12,10 @@ namespace Backend.Data
 
         }
 
+        public DbSet<Soba> Sobe { get; set; }
         public DbSet<Djelatnik> Djelatnici { get; set; }
+        public DbSet<Gost> Gosti { get; set; }
 
+        public DbSet<Hotel> Hoteli { get; set; }
     }
 }
