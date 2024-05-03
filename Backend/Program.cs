@@ -10,6 +10,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opcije =>
+{
+    opcije.AddPolicy("CorsPolicy",
+        builder =>
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+    );
+
+});
+
+
+
+
 // Dodavanje baze podataka
 builder.Services.AddDbContext<EdunovaContext>(o => {
     o.UseSqlServer(builder.Configuration.GetConnectionString("EdunovaContext"));
@@ -30,8 +42,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseStaticFiles  ();
-app.UseDefaultFiles ();
+app.UseCors("CorsPolicy");
+
+// za potrebe produkcije
+app.UseStaticFiles();
+app.UseDefaultFiles();
 app.MapFallbackToFile("index.html");
+// završio za potrebe produkcije
 
 app.Run();
