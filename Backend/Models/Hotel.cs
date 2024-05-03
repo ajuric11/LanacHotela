@@ -2,7 +2,7 @@
 
 namespace Backend.Models
 {
-    public class Hotel
+    public class Hotel:Entitet
     {
 
 
